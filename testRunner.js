@@ -24,3 +24,4 @@ function TestRunner() {
 }
 
 var testRunner = new TestRunner();
+var test = new Object();
