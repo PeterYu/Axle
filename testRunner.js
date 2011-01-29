@@ -11,6 +11,7 @@ function TestRunner() {
 	for(test in this.tests) {
 	    try {
 		test();
+		print('.');
 	    } catch (e) {
 		print(e);
 	    }
