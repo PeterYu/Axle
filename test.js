@@ -1,9 +1,11 @@
-testRunner.tests.push(function() {
-	assertEquals(20, add(3,10));
-    });
+var test = new Object();
 
-testRunner.tests.push(function() {
-	assertEquals(13, add(3,10));
-    });
+test.addIncorrectlyShouldFail = function() {
+    assertEquals(20, add(3,10));
+};
 
-testRunner.run();
+test.addCorrectlyShouldPass = function() {
+    assertEquals(13, add(3,10));
+};
+
+testRunner.run(test);

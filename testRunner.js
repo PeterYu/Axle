@@ -7,17 +7,19 @@ function assertEquals(expected, actual) {
 function TestRunner() {
     this.tests = new Array();
     
-    this.run = function() {
+    this.run = function(tests) {
 	var failCount = 0;
-	for(i in this.tests) {
+	var totalCount = 0;
+	for(i in tests) {
+	    totalCount++;
 	    try {
-		this.tests[i].call();
+		tests[i].call();
 	    } catch (e) {
-		print(e);
+		print('In test: ' + i + ', ' + e);
 		failCount++;
 	    }
 	}
-	print("Runs: " + this.tests.length + " Passed: " + (this.tests.length - failCount) + " Failed: " + failCount);
+	print("Runs: " + totalCount + " Passed: " + (totalCount - failCount) + " Failed: " + failCount);
     };
 }
 
