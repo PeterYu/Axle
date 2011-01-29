@@ -1,9 +1,20 @@
-test.that_add_incorrectly_should_fail = function() {
-    assertEquals(20, add(3,10));
+var account;
+
+setup.create_fixtures = function() {
+    account = new Account();
+    account.deposit(100);
+}
+
+test.deposit_should_add_to_balance = function() {
+    assertEquals(100, account.balance);
+    account.deposit(50);
+    assertEquals(150, account.balance);
 };
 
-test.that_add_correctly_should_pass = function() {
-    assertEquals(13, add(3,10));
+test.incorrect_assertion_should_fail = function() {
+    assertEquals(100, account.balance);
+    account.deposit(50);
+    assertEquals(151, account.balance);
 };
 
 testRunner.run(test);

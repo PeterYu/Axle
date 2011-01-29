@@ -5,15 +5,18 @@ function assertEquals(expected, actual) {
 }
 
 function TestRunner() {
-    this.tests = new Array();
-    
     this.run = function(tests) {
 	var failCount = 0;
 	var totalCount = 0;
-	for(i in tests) {
+
+	for(i in setup) {
+	    setup[i].call();
+	}
+
+	for(i in test) {
 	    totalCount++;
 	    try {
-		tests[i].call();
+		test[i].call();
 	    } catch (e) {
 		print('In test: ' + i + ', ' + e);
 		failCount++;
@@ -25,3 +28,4 @@ function TestRunner() {
 
 var testRunner = new TestRunner();
 var test = new Object();
+var setup = new Object();
