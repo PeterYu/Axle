@@ -4,6 +4,18 @@ function assertEquals(expected, actual) {
     }
 }
 
+function assertTrue(condition) {
+    if (condition == false) {
+	throw("Expected <true> but was <false>");
+    }
+}
+
+function assertFalse(condition) {
+    if (condition == true) {
+	throw("Expected <false> but was <true>");
+    }
+}
+
 function TestRunner() {
     this.run = function(tests) {
 	var failCount = 0;

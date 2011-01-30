@@ -20,4 +20,20 @@ test.incorrect_assertion_should_fail = function() {
     assertEquals(151, account.balance);
 };
 
+test.assertTrue_should_pass = function() {
+    assertTrue(true);
+};
+
+test.assertTrue_should_fail = function() {
+    assertTrue(false);
+};
+
+test.assertFalse_should_pass = function() {
+    assertFalse(false);
+};
+
+test.assertFalse_should_fail = function() {
+    assertFalse(true);
+};
+
 testRunner.run(test);
