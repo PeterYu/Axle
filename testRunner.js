@@ -52,7 +52,7 @@ function assertTrue() {
     }
 }
 
-function assertFalse(condition) {
+function assertFalse() {
     var args = new SingleArgument(arguments)
     if (args.actual == true) {
 	throw(new AssertionFailedError(args.message + "Expected <false> but was <true>"));
@@ -64,14 +64,14 @@ function fail() {
     throw(new AssertionFailedError(args.message + "Should not get here."));
 }
 
-function assertNull(obj) {
+function assertNull() {
     var args = new SingleArgument(arguments)
     if (args.actual == undefined || args.actual != null) {
 	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
     }
 }
 
-function assertNotNull(obj) {
+function assertNotNull() {
     var args = new SingleArgument(arguments)
     if (args.actual == null) {
 	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
