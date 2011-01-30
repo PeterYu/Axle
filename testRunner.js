@@ -83,20 +83,20 @@ function AssertionFailedError(message) {
 }
 
 function TestRunner() {
-    this.run = function(tests) {
+    this.run = function(testcases) {
 	var failCount = 0;
 	var totalCount = 0;
 
-	for(i in test) {
+	for(testName in testcases) {
 	    totalCount++;
 
 	    callAllMethodsIn(setup);
 
 	    try {
-		test[i].call();
+		testcases[testName].call();
 	    } catch (e) {
 		if (e instanceof AssertionFailedError) {
-		    print('In test: ' + i + ', ' + e.message);
+		    print('In test: ' + testName + ', ' + e.message);
 		    failCount++;
 		} else {
 		    throw(e);
