@@ -1,19 +1,27 @@
 function assertEquals(expected, actual) {
     if (expected != actual) {
-	throw("Expected <" + expected + "> but was <" + actual + ">");
+	throw(new AssertionFailedError("Expected <" + expected + "> but was <" + actual + ">"));
     }
 }
 
 function assertTrue(condition) {
     if (condition == false) {
-	throw("Expected <true> but was <false>");
+	throw(new AssertionFailedError("Expected <true> but was <false>"));
     }
 }
 
 function assertFalse(condition) {
     if (condition == true) {
-	throw("Expected <false> but was <true>");
+	throw(new AssertionFailedError("Expected <false> but was <true>"));
     }
+}
+
+function fail() {
+    throw(new AssertionFailedError("Should not get here."));
+}
+
+function AssertionFailedError(message) {
+    this.message = message;
 }
 
 function TestRunner() {
@@ -29,8 +37,10 @@ function TestRunner() {
 	    try {
 		test[i].call();
 	    } catch (e) {
-		print('In test: ' + i + ', ' + e);
-		failCount++;
+		if (e instanceof AssertionFailedError) {
+		    print('In test: ' + i + ', ' + e.message);
+		    failCount++;
+		}
 	    }
 
 	    callAllMethodsIn(teardown);

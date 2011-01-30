@@ -36,4 +36,22 @@ test.assertFalse_should_fail = function() {
     assertFalse(true);
 };
 
+test.fail_should_pass = function() {
+    try {
+	methodThatThrowsException();
+	fail();
+    } catch (e) {
+	assertEquals("nasty exception", e);
+    }
+};
+
+test.fail_should_fail = function() {
+    var a = 1 + 2;
+    fail();
+};
+
+function methodThatThrowsException() {
+    throw("nasty exception");
+}
+
 testRunner.run(test);
