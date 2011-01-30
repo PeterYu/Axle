@@ -20,6 +20,18 @@ function fail() {
     throw(new AssertionFailedError("Should not get here."));
 }
 
+function assertNull(obj) {
+    if (obj == undefined || obj != null) {
+	throw(new AssertionFailedError("Expected <null> but was <" + obj + ">"));
+    }
+}
+
+function assertNotNull(obj) {
+    if (obj == null) {
+	throw(new AssertionFailedError("Expected <null> but was <" + obj + ">"));
+    }
+}
+
 function AssertionFailedError(message) {
     this.message = message;
 }
@@ -40,6 +52,8 @@ function TestRunner() {
 		if (e instanceof AssertionFailedError) {
 		    print('In test: ' + i + ', ' + e.message);
 		    failCount++;
+		} else {
+		    throw(e);
 		}
 	    }
 
