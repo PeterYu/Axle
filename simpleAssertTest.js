@@ -23,6 +23,11 @@ test.fail_should_pass = function() {
     }
 };
 
+test.fail_with_message_should_fail = function() {
+    var a = 1 + 2;
+    fail('Kaboom!');
+};
+
 test.fail_should_fail = function() {
     var a = 1 + 2;
     fail();
@@ -57,7 +62,11 @@ test.assertNotNull_on_boolean_should_pass = function() {
 };
 
 test.assertNotNull_should_fail = function() {
-    assertNotNull(null);
+    assertNotNull('fail message here', null);
+};
+
+test.assert_comment_messages = function() {
+    assertEquals('message', 1, 2);
 };
 
 function methodThatThrowsException() {

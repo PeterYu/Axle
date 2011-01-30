@@ -1,34 +1,80 @@
-function assertEquals(expected, actual) {
-    if (expected != actual) {
-	throw(new AssertionFailedError("Expected <" + expected + "> but was <" + actual + ">"));
+function CompareTwoArguments(args) {
+    this.message = '';
+    this.expected;
+    this.actual;
+    var assertDataStarts = 0;
+    if (args.length == 3) {
+	this.message = '"' + args[0] + '" ';
+	assertDataStarts++;
+    } 
+    this.expected = args[assertDataStarts];
+    this.actual = args[assertDataStarts + 1];
+}
+
+function SingleArgument(args) {
+    this.message = '';
+    this.actual;
+    var assertDataStarts = 0;
+    if (args.length == 2) {
+	this.message = '"' + args[0] + '" ';
+	assertDataStarts++;
+    } 
+    this.actual = args[assertDataStarts];
+}
+
+function NoArgument(args) {
+    this.message = '';
+    if (args.length == 1) {
+	this.message = '"' + args[0] + '" ';
+    } 
+}
+
+function assertEquals() {
+    var args = new CompareTwoArguments(arguments);
+
+    if (args.expected != args.actual) {
+	throw(new AssertionFailedError(args.message + "Expected <" + args.expected + "> but was <" + args.actual + ">"));
     }
 }
 
-function assertTrue(condition) {
-    if (condition == false) {
-	throw(new AssertionFailedError("Expected <true> but was <false>"));
+function assertNotEquals() {
+    var args = new CompareTwoArguments(arguments, 3);
+
+    if (args.expected == args.actual) {
+	throw(new AssertionFailedError(args.message + "Expected <" + args.expected + "> and <" + args.actual + "> to be different but was equal by (==)"));
+    }
+}
+
+function assertTrue() {
+    var args = new SingleArgument(arguments)
+    if (args.actual == false) {
+	throw(new AssertionFailedError(args.message + "Expected <true> but was <false>"));
     }
 }
 
 function assertFalse(condition) {
-    if (condition == true) {
-	throw(new AssertionFailedError("Expected <false> but was <true>"));
+    var args = new SingleArgument(arguments)
+    if (args.actual == true) {
+	throw(new AssertionFailedError(args.message + "Expected <false> but was <true>"));
     }
 }
 
 function fail() {
-    throw(new AssertionFailedError("Should not get here."));
+    var args = new NoArgument(arguments);
+    throw(new AssertionFailedError(args.message + "Should not get here."));
 }
 
 function assertNull(obj) {
-    if (obj == undefined || obj != null) {
-	throw(new AssertionFailedError("Expected <null> but was <" + obj + ">"));
+    var args = new SingleArgument(arguments)
+    if (args.actual == undefined || args.actual != null) {
+	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
     }
 }
 
 function assertNotNull(obj) {
-    if (obj == null) {
-	throw(new AssertionFailedError("Expected <null> but was <" + obj + ">"));
+    var args = new SingleArgument(arguments)
+    if (args.actual == null) {
+	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
     }
 }
 
