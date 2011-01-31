@@ -88,35 +88,37 @@ function TestRunner() {
 	var totalCount = 0;
 
 	for(testName in testcases) {
-	    totalCount++;
-
-	    callAllMethodsIn(setup);
-
-	    try {
-		testcases[testName].call();
-	    } catch (e) {
-		if (e instanceof AssertionFailedError) {
-		    print('In test: ' + testName + ', ' + e.message);
-		    failCount++;
-		} else {
-		    throw(e);
+	    if (testName != 'setUp' && testName != 'tearDown') {
+		totalCount++;
+		
+		callIfMethodExists(testcases.setUp);
+		
+		try {
+		    testcases[testName].call();
+		} catch (e) {
+		    if (e instanceof AssertionFailedError) {
+			print('In test: ' + testName + ', ' + e.message);
+			failCount++;
+		    } else {
+			throw(e);
+		    }
 		}
-	    }
 
-	    callAllMethodsIn(teardown);
+		callIfMethodExists(testcases.tearDown);
+	    }
 
 	}
 	print("Runs: " + totalCount + " Passed: " + (totalCount - failCount) + " Failed: " + failCount);
     };
 }
 
-function callAllMethodsIn(obj) {
-    for(var methodName in obj) {
-	obj[methodName].call();
+function callIfMethodExists(method) {
+    if (method != undefined) {
+	method.call();
     }
 }
 
-var testRunner = new TestRunner();
-var test = new Object();
-var setup = new Object();
-var teardown = new Object();
+function testCase(testMethods) {
+    return new TestRunner().run(testMethods);
+}
+

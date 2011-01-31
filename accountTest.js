@@ -1,23 +1,25 @@
-var account = new Account();
+testCase(new function() {
 
-setup.initial_deposit = function() {
-    account.deposit(100);
-};
+	var account = new Account();
 
-teardown.reset_account = function() {
-    account.withdrawAll();
-};
+	this.setUp = function() {
+	    account.deposit(100);
+	};
 
-test.deposit_should_add_to_balance = function() {
-    assertEquals(100, account.balance);
-    account.deposit(50);
-    assertEquals(150, account.balance);
-};
+	this.tearDown = function() {
+	    account.withdrawAll();
+	};
 
-test.incorrect_assertion_should_fail = function() {
-    assertEquals(100, account.balance);
-    account.deposit(50);
-    assertEquals(151, account.balance);
-};
+	this.deposit_should_add_to_balance = function() {
+	    assertEquals(100, account.balance);
+	    account.deposit(50);
+	    assertEquals(150, account.balance);
+	};
 
-testRunner.run(test);
+	this.incorrect_assertion_should_fail = function() {
+	    assertEquals(100, account.balance);
+	    account.deposit(50);
+	    assertEquals(151, account.balance);
+	};
+
+    });
