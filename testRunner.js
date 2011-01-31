@@ -91,7 +91,7 @@ function TestRunner() {
 	    if (testName != 'setUp' && testName != 'tearDown') {
 		totalCount++;
 		
-		callIfMethodExists(testcases.setUp);
+		callIfDefined(testcases.setUp);
 		
 		try {
 		    testcases[testName].call();
@@ -104,7 +104,7 @@ function TestRunner() {
 		    }
 		}
 
-		callIfMethodExists(testcases.tearDown);
+		callIfDefined(testcases.tearDown);
 	    }
 
 	}
@@ -112,7 +112,7 @@ function TestRunner() {
     };
 }
 
-function callIfMethodExists(method) {
+function callIfDefined(method) {
     if (method != undefined) {
 	method.call();
     }
