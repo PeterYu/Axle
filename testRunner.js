@@ -46,14 +46,14 @@ function assertNotEquals() {
 }
 
 function assertTrue() {
-    var args = new SingleArgument(arguments)
+    var args = new SingleArgument(arguments);
     if (args.actual == false) {
 	throw(new AssertionFailedError(args.message + "Expected <true> but was <false>"));
     }
 }
 
 function assertFalse() {
-    var args = new SingleArgument(arguments)
+    var args = new SingleArgument(arguments);
     if (args.actual == true) {
 	throw(new AssertionFailedError(args.message + "Expected <false> but was <true>"));
     }
@@ -65,14 +65,15 @@ function fail() {
 }
 
 function assertNull() {
-    var args = new SingleArgument(arguments)
-    if (args.actual == undefined || args.actual != null) {
+    var args = new SingleArgument(arguments);
+    
+    if (args.actual != null) {
 	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
     }
 }
 
 function assertNotNull() {
-    var args = new SingleArgument(arguments)
+    var args = new SingleArgument(arguments);
     if (args.actual == null) {
 	throw(new AssertionFailedError(args.message + "Expected <null> but was <" + args.actual + ">"));
     }
