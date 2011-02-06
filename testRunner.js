@@ -84,9 +84,14 @@ function AssertionFailedError(message) {
 }
 
 function TestRunner() {
+
+    this.testName = arguments.length == 0 ? '' : arguments[0];
+
     this.run = function(testcases) {
 	var failCount = 0;
 	var totalCount = 0;
+
+	print('Testing: ' + this.testName);
 
 	for(testName in testcases) {
 	    if (testName != 'setUp' && testName != 'tearDown') {
@@ -119,7 +124,16 @@ function callIfDefined(method) {
     }
 }
 
-function testCase(testMethods) {
-    return new TestRunner().run(testMethods);
+function testCase() {
+    switch (arguments.length) {
+    case 1:
+	new TestRunner().run(arguments[0]);
+	break;
+    case 2:
+	new TestRunner(arguments[0]).run(arguments[1]);
+	break;
+    default:
+	throw("Unable to run test cases. Please invoke with test methods (closure).");
+    }
 }
 
